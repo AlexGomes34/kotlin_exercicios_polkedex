@@ -1,6 +1,7 @@
 package com.example.polkedex_exercicio
 
 import android.content.ClipData
+import com.example.polkedex_exercicio.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -63,6 +64,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun PokemonsScreen(modifier: Modifier = Modifier) {
+
     Column(modifier = modifier
         .fillMaxSize()) {
         Row(modifier = Modifier
@@ -101,40 +103,67 @@ fun PokemonsScreen(modifier: Modifier = Modifier) {
             )
         }
         Column(modifier = Modifier.fillMaxSize()
-            .padding(start = 20.dp)){
-        LazyVerticalGrid(columns = GridCells.FixedSize(115.dp),
-            modifier = Modifier.fillMaxWidth()
-                .padding(start = 10.dp))
-        {
-            items(3) {
-
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Column(modifier = Modifier.width(115.dp)
+            .padding(start = 10.dp)){
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 10.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(9) { // Aumentei para 9 para testar a rolagem
+                    // O Card do Pokemon
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .height(140.dp)
-                            .padding(p)
                             .clip(RoundedCornerShape(12.dp))
                             .border(1.dp, Color.Green, shape = RoundedCornerShape(12.dp)),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        // Box para organizar o ID (Top End) e a Imagem (Center)
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f) // Ocupa o espaço disponível acima da tarja verde
+                                .padding(4.dp)
                         ) {
-                            Text(text = "#001", modifier = Modifier.padding(start = 70.dp), fontSize = 10.sp)
+                            Text(
+                                text = "#001",
+                                fontSize = 10.sp,
+                                color = Color.Gray,
+                                modifier = Modifier.align(Alignment.TopEnd) // Canto superior direito
+                            )
+
                             Image(
                                 painter = painterResource(R.drawable.lupa),
                                 contentDescription = "pokemonk",
-                                modifier = Modifier.size(80.dp),
-                                alignment = Alignment.Center
+                                modifier = Modifier
+                                    .size(70.dp)
+                                    .align(Alignment.Center) // Imagem centralizada no Box
                             )
-                            Row(modifier = Modifier.fillMaxWidth()
-                                .height(35.dp)
+                        }
+
+                        // Rodapé com o nome
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(30.dp)
                                 .background(Color.Green),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(text = "Aeeeee", fontSize = 15.sp, color = Color.White)
-                            }
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Bulbasaur",
+                                fontSize = 14.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                     }
                 }
             }
         }
+        }
     }
-}
