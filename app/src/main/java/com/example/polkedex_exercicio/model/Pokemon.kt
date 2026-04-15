@@ -2,8 +2,9 @@ package com.example.polkedex_exercicio.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Pokemon (
+data class Pokemons (
     val id: Int,
     val name: String,
-    @SerializedName("front_default")val imagem: String
+    val sprites: com.google.gson.JsonObject // Mapeia como objeto puro
 )
+
